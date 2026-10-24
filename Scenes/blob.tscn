@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://dre62d3ls4sy0"]
+
+[ext_resource type="Script" uid="uid://ds2m4crma0mst" path="res://Scripts/blob.gd" id="1_3y2e6"]
+[ext_resource type="PackedScene" uid="uid://fc0m8wks4qq6" path="res://scenes/FX/flash_sprite_2d.tscn" id="2_eba5w"]
+[ext_resource type="Shader" uid="uid://bvnve8pin5lbl" path="res://shaders/flash.tres" id="3_vg2cp"]
+[ext_resource type="Texture2D" uid="uid://b466fqj7w4mne" path="res://Assets/graphics/characters/blob.png" id="4_ckn0h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcmgo"]
+resource_local_to_scene = true
+shader = ExtResource("3_vg2cp")
+shader_parameter/Color = Color(1, 1, 1, 1)
+shader_parameter/Progress = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glmhx"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_q8jss"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlashSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_f1v85"]
+resource_name = "exploide"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlashSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.56666666, 0.8, 1.0333333, 1.2333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12, 13]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_amh0s"]
+resource_name = "move"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlashSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pixkw"]
+_data = {
+&"RESET": SubResource("Animation_q8jss"),
+&"exploide": SubResource("Animation_f1v85"),
+&"move": SubResource("Animation_amh0s")
+}
+
+[node name="Blob" type="CharacterBody2D" unique_id=965716553 groups=["Objects"]]
+collision_layer = 4
+script = ExtResource("1_3y2e6")
+
+[node name="FlashSprite2D" parent="." unique_id=1234863335 instance=ExtResource("2_eba5w")]
+material = SubResource("ShaderMaterial_vcmgo")
+texture = ExtResource("4_ckn0h")
+hframes = 14
+vframes = 4
+frame = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1992590701]
+shape = SubResource("CircleShape2D_glmhx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1869807731]
+libraries/ = SubResource("AnimationLibrary_pixkw")
+autoplay = &"move"

@@ -11,5 +11,6 @@ W key - Up
 Q key - to change Tool left
 E key - to change Tool right
 E key - to change type of crop to plant
+Space Bar key - to use the selected tool
 Tab key - to open and close the diagnostics panel 
 N key - to change to next day 

@@ -14,3 +14,6 @@ E key - to change type of crop to plant
 Space Bar key - to use the selected tool
 Tab key - to open and close the diagnostics panel 
 N key - to change to next day 
+
+## link to game
+Link: https://itch.io/embed-upload/20010718?color=333333
